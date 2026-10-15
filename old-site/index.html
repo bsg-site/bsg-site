@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><meta name="robots" content="noindex">
+    <meta http-equiv="content-type" content="text/html;
+      charset=windows-1252">
+    <title>Biological Structures Group</title>
+    <link rel="stylesheet" type="text/css" href="../style.css"
+      media="screen">
+  </head>
+<script src="https://pixijs.download/release/pixi.js"></script>
+<script src="../fengari_web.js" type="text/javascript" async></script>
+
+  <body><div style="font:15px/1.5 system-ui,sans-serif;background:#fef3c7;color:#1f2937;border-bottom:1px solid #d97706;padding:.6rem 1rem;text-align:center">Archived copy of the old BSG website, kept for reference and no longer updated. The current site is <a href="https://biostructures.org.uk/" style="color:#0f766e;font-weight:600">biostructures.org.uk</a>.</div>
+    <div id="header"><div id="skydiv" style="position:absolute;opacity:0.3;"></div id="skydiv">
+      <center>
+        <h1 style="position: relative; z-index:1;">Biological Structures Group (BSG) Homepage</h1>
+      </center>
+      <div id="menu" style="position: relative; z-index:1;">
+        <ul id="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="organisation.html">Organisation</a></li>
+          <li><a href="archives.html">Archives</a></li>
+          <li><a href="useful.html">Useful links</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="prizes.html">Prizes</a></li>
+        </ul>
+      </div id="menu">
+    </div id="header">
+
+<div id="content">
+        <div id="left">The aim of this page is to provide links to the
+        biological crystallography groups in the UK, the main european
+        facilities, forthcoming meetings and courses, suppliers,
+        employment opportunities and specialised or generally useful
+        software.
+        <p> All constructive suggestions for improvement are very
+          welcome indeed and please let me know what you would like to
+          see in this page!</p>
+        <p> No thrills warning: the format of this page is basic. </p>
+      </div id="left">
+
+<div id="right">
+
+<center> <img src="../bsglogo.gif"> </center> <p>
+
+      <div class="box">
+        <h2>Group Activities<br>
+        </h2>
+        Each year the BSG organises sessions at the BCA Spring meeting,
+        organises a 1 day winter meeting and organises a protein
+        crystallography summer school. </div>
+      <div class="box">
+        <h2>Related links</h2>
+        <ul>
+          <li><a href="http://www.crystallography.org.uk">BCA</a></li>
+          <li><a href="http://www.ecanews.org/">ECA</a></li>
+          <li><a href="http://www.amercrystalassn.org/">ACA</a></li>
+          <li><a href="http://www.iucr.org">IUCr</a></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>Contact the BSG</h2>
+        <div style="font-size: 0.8em;">Please e-mail the group secretary
+          if you would like to contact the BSG committee.</div>
+      </div>
+      <div class="box">
+        <div style="font-size: 0.8em;">Based on a template by <i>lazar</i>
+          from <a href="http://www.oswd.org">Open Source Web Design</a></div>
+      </div>
+</div id="right">
+
+<div id="left2">
+<center>
+<a href="../BSG_winter_26_poster.jpg"><img style="width: 300px; height: auto;" src="../BSG_winter_26_poster.jpg" alt="BSG Winter Meeting 2026 poster."></a>
+<p>
+<b><big><big>
+BSG Winter Meeting 2026, Friday 11 December, University of Leicester.</big></big>
+</b></center> <p>
+<i>Capturing Proteins in Motion: Structural Biology of Dynamic and Disordered Proteins.</i>
+A one-day meeting at the Henry Wellcome Building, Leicester Institute of Structural and Chemical Biology,
+organised by Simon Newstead (Oxford) and Rachael Wilkinson (Leicester).
+Speakers: John Christodoulou (UCL), Rebecca Beveridge (Strathclyde), Sarah Rouse (Imperial),
+Cyril Dominguez (Leicester) and keynote Matthew Higgins (Oxford), with short talks selected from posters and poster prizes.
+<p>
+Registration is &pound;80 (120 places) and closes on 26 November 2026; abstracts for short talks are due by 20 November 2026.
+<p>
+<a href="https://registrations.hg3conferences.co.uk/hg3/frontend/reg/thome.csp?pageID=161036&amp;eventID=388">Register here</a> &middot; <a href="../BSG_winter_26.pdf">Programme (PDF)</a>
+<p>
+</div>
+
+
+<div id="left3"><center><img src="../endoxtal.jpg"><img src="../xtalsmall.jpg"><img src="../smallpaul2.jpg"><img src="../mapsmall.jpg">
+</center> </div id="left3">
+
+</div id="content">
+
+</body>
+<script type="application/lua">
+
+local js=require('js')
+local window=js.global
+local document=window.document
+skydiv=document:getElementById("skydiv")
+headdiv=document:getElementById("header")
+image_width=763
+image_height=764
+
+function main()
+app=js.new(window.PIXI.Application)
+background=js.new(window.Object)
+div_width=headdiv.clientWidth
+div_height=headdiv.clientHeight
+background.width=div_width
+background.height=div_height
+background.backgroundAlpha=0
+background.antialias=true
+scale=div_width/image_width  oldscale=scale
+init_promise=app:init(background)
+init_promise["then"](init_promise, function() skydiv:insertAdjacentElement("afterbegin",app.canvas)  end)  --override lua's own then command
+asset_promise=window.PIXI.Assets:load('oscimage.png')
+asset_promise["then"](asset_promise, function() sprite=window.PIXI.TilingSprite:from('oscimage.png') sprite.alpha=0 app.stage:addChild(sprite) sprite.width=div_width sprite.height=div_height sprite.tileScale:set(scale,scale) sprite.tilePosition.y=-200 zoom() end)  --override lua's own then command
+end
+
+function zoom()
+app.ticker:add( function(_,ticker)
+                if sprite.alpha<1.0 then sprite.alpha=sprite.alpha+ticker.deltaTime*0.01 end
+                if scale/oldscale>1.2 then return end
+                scale=scale+ticker.deltaTime*0.00003
+                sprite.tilePosition.y=sprite.tilePosition.y-0.2
+                sprite.tileScale:set(scale,scale)
+                end
+                )
+end
+
+main()
+
+window:addEventListener("resize", function() app.canvas:remove() main() end)
+
+</script>
+</html>

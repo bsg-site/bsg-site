@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head><meta name="robots" content="noindex">
+    <meta http-equiv="content-type" content="text/html;
+      charset=windows-1252">
+    <title>Biological Structures Group</title>
+    <link rel="stylesheet" type="text/css" href="../style.css"
+      media="screen">
+  </head>
+<script src="https://pixijs.download/release/pixi.js"></script>
+<script src="../fengari_web.js" type="text/javascript" async></script>
+
+  <body><div style="font:15px/1.5 system-ui,sans-serif;background:#fef3c7;color:#1f2937;border-bottom:1px solid #d97706;padding:.6rem 1rem;text-align:center">Archived copy of the old BSG website, kept for reference and no longer updated. The current site is <a href="https://biostructures.org.uk/" style="color:#0f766e;font-weight:600">biostructures.org.uk</a>.</div>
+    <div id="header"><div id="skydiv" style="position:absolute;opacity:0.2;"></div>
+      <center>
+        <h1 style="position: relative; z-index:1;">Biological Structures Group (BSG) Homepage</h1>
+      </center>
+      <div id="menu" style="position: relative; z-index:1;">
+        <ul id="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="organisation.html">Organisation</a></li>
+          <li><a href="archives.html">Archives</a></li>
+          <li><a href="useful.html">Useful links</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="prizes.html">Prizes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div id="left">
+      <h2>BSG Committee Members</h2>
+        <br>
+        <div id="col1" style="width: 45%; float:left;">
+        <b><u>Officers</u></b>
+        <p><span style="font-weight: bold;">Chairman</span>: Prof Simon Newstead (Oxford) (2026-2028)</p></p>
+        <p><span style="font-weight: bold;">Vice-Chair</span>: Dr Briony Yorke (Leeds) (2024-2027)</p>
+        <p><span style="font-weight: bold;">Treasurer</span>: Prof Mark Sanderson (Imperial) (2017-2026)</p>
+        <p><b>Secretary</b>: Dr Rachael Wilkinson (Leicester) (2024-2027)</p>
+        <p><b>Council representative</b>: Dr Rachael Wilkinson (Leicester) (2024-2027)</p>
+        <p><b>ESCG representative:</b> Dr Jake Hill (Bradford) (2023-2026)</p>
+        <p><b>Education Rep:</b> Dr Natalie Tatum (Newcastle) (2024-2027)</p>
+        <p><b>Web People</b>: Dr David Aragao (DLS) (2024-2027)</p><br><br>
+        </div>
+
+        <div id="col2" style="width: 45%; float:right;">
+        <b><u>Ordinary Members</u></b>
+        <p>Dr Katherine Brown (Cambridge) (2025-2028)</p>
+        <p>Dr Adam Crawshaw (Diamond Light Source) (2025-2028)</p>
+        <p>Dr Daren Fearon (Diamond light Source) (2025-2028)</p>
+        <p>Dr Sam Horrell (Diamond Light Source) (2022-2025)</p>
+        <p>Prof Mike Hough (Essex) (2018-2027)</p>
+        <p>Kate Lewis (Formulatrix) (2022-2025)</p>
+        <p>Dr Mark Montgomery (Syngenta) (2022-2028)</p>
+        <p>Dr Claire Naylor (Thermo Fisher Scientific) (2017-2026)</p>        
+        <p>Dr Mark Richards (Leeds) (2021-2026)</p>
+        <p>Simon Tanley (MDL) (2023-2026)</p>
+        </div>
+      </div>
+      <center> <img src="../bsglogo.gif"> </center>
+      <p> </p>
+      <div id="right">
+        <div class="box">
+          <h2>Group Activities<br>
+          </h2>
+          Each year the BSG organises sessions at the BCA Spring
+          meeting, organises a 1 day winter meeting and organises a
+          protein crystallography summer school. </div>
+        <div class="box">
+          <h2>Related links</h2>
+          <ul>
+            <li><a href="http://www.crystallography.org.uk">BCA</a></li>
+            <li><a href="http://www.ecanews.org/">ECA</a></li>
+            <li><a href="http://www.amercrystalassn.org/">ACA</a></li>
+            <li><a href="http://www.iucr.org">IUCr</a></li>
+          </ul>
+        </div>
+        <div class="box">
+          <h2>Contact the BSG</h2>
+          <div style="font-size: 0.8em;">Please e-mail the group
+            secretary if you would like to contact the BSG committee.</div>
+        </div>
+        <div class="box">
+          <div style="font-size: 0.8em;">Based on a template by <i>lazar</i>
+            from <a href="http://www.oswd.org">Open Source Web Design</a></div>
+        </div>
+      </div>
+    </div>
+    <center> <br>
+      &nbsp; </center>
+  </body>
+<script type="application/lua">
+
+local js=require('js')
+local window=js.global
+local document=window.document
+skydiv=document:getElementById("skydiv")
+headdiv=document:getElementById("header")
+image_width=801
+image_height=494
+
+function main()
+app=js.new(window.PIXI.Application)
+background=js.new(window.Object)
+div_width=headdiv.clientWidth
+div_height=headdiv.clientHeight
+background.width=div_width
+background.height=div_height
+background.backgroundAlpha=0
+background.antialias=true
+scale=div_width/image_width  oldscale=scale
+init_promise=app:init(background)
+init_promise["then"](init_promise, function() skydiv:insertAdjacentElement("afterbegin",app.canvas)  end)  --override lua's own then command
+asset_promise=window.PIXI.Assets:load('mapatomic.png')
+asset_promise["then"](asset_promise, function() sprite=window.PIXI.TilingSprite:from('mapatomic.png') sprite.alpha=0 app.stage:addChild(sprite) sprite.width=div_width sprite.height=div_height sprite.tileScale:set(scale,scale) sprite.tilePosition.y=-200 zoom() end)  --override lua's own then command
+end
+
+function zoom()
+app.ticker:add( function(_,ticker)
+                if sprite.alpha<1.0 then sprite.alpha=sprite.alpha+ticker.deltaTime*0.01 end
+                if scale/oldscale>1.2 then return end
+                scale=scale+ticker.deltaTime*0.00003
+                sprite.tilePosition.y=sprite.tilePosition.y-0.2
+                sprite.tileScale:set(scale,scale)
+                end
+                )
+end
+
+main()
+
+window:addEventListener("resize", function() app.canvas:remove() main() end)
+
+</script>
+</html>
